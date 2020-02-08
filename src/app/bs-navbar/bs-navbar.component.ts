@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { FirebaseAuthService } from '../providers/firebase-auth.service';
 import * as firebase from 'firebase/app';
 import { Observable, of } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument
-} from 'angularfire2/firestore';
+
 
 @Component({
   selector: 'app-bs-navbar',
@@ -18,19 +14,9 @@ export class BsNavbarComponent implements OnInit {
   user$: Observable<firebase.User>;
   // user$: Observable<any>;
 
-  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
-    this.user$ = afAuth.authState;
-    // this.user$ = this.afAuth.authState.pipe(
-    //   tap(user => console.log(`user`, user)),
-    //   switchMap(user => {
-    //     if (user) {
-    //       return this.afs.doc<any>(`users/${user.uid}`).valueChanges();
-    //     } else {
-    //       return of(null);
-    //     }
-    //   }),
-    //   tap(x => console.log(x))
-    // );
+  constructor(private fbAuth: FirebaseAuthService) {
+    this.user$ = fbAuth.watchForAuthState();
+
   }
 
   ngOnInit() {
@@ -38,7 +24,7 @@ export class BsNavbarComponent implements OnInit {
   }
 
   logout() {
-    this.afAuth.auth.signOut();
+    this.fbAuth.logout();
   }
 
 }

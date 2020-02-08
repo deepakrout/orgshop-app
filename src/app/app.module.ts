@@ -20,6 +20,7 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { LoginComponent } from './login/login.component';
+import { FirebaseAuthService } from './providers/firebase-auth.service';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,7 @@ import { LoginComponent } from './login/login.component';
       }
     ])
   ],
-  providers: [],
+  providers: [FirebaseAuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
