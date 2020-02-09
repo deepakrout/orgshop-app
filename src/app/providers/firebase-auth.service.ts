@@ -29,7 +29,10 @@ export class FirebaseAuthService {
   }
 
   isLoggedIn(): Promise<any> {
-    return this.afAuth.authState.pipe(tap( user => console.log(`User found`, user)), first()).toPromise();
+    return this.afAuth.authState.pipe(
+      tap( user => console.log(`User found`, user)),
+      first())
+      .toPromise();
   }
 
 }
