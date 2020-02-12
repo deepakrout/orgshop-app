@@ -11,19 +11,19 @@ import { UserService } from './providers/user.service';
 export class AppComponent {
 
   constructor(private authSrvc: FirebaseAuthService, private router: Router, private usrSrvc: UserService) {
-    // authSrvc.watchForAuthState().subscribe(user => {
-    //   console.log(`User logged in status: AppCompnenet`, user);
-    //   if (user) {
-    //     usrSrvc.save(user);
-    //     console.log(`User logged in: AppCompnenet`, user);
-    //     const returnUrl = localStorage.getItem('returnUrl');
-    //     console.log(`User logged in: AppCompnenet`, user, returnUrl);
-    //     setTimeout(() => {
-    //       router.navigateByUrl(returnUrl).then(x => console.log('navigation status', x)).catch(err => console.log(`Error occured`, err));
-    //     }, 0);
+    authSrvc.watchForAuthState().subscribe(user => {
+      console.log(`User logged in status: AppCompnenet`, user);
+      if (user) {
+        usrSrvc.save(user);
+        console.log(`User logged in: AppCompnenet`, user);
+        const returnUrl = localStorage.getItem('returnUrl');
+        console.log(`User logged in: AppCompnenet`, user, returnUrl);
+        setTimeout(() => {
+          router.navigateByUrl(returnUrl).then(x => console.log('navigation status', x)).catch(err => console.log(`Error occured`, err));
+        }, 0);
 
-    //   }
-    // });
+      }
+    });
   }
 
 
