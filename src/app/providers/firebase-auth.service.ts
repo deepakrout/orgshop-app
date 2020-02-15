@@ -10,7 +10,11 @@ import { first, tap } from 'rxjs/operators';
 })
 export class FirebaseAuthService {
 
-  constructor(private afAuth: AngularFireAuth, private route: ActivatedRoute) { }
+  $user: Observable<firebase.User>;
+
+  constructor(private afAuth: AngularFireAuth, private route: ActivatedRoute) {
+    this.$user = afAuth.authState;
+  }
 
   login() {
     const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
